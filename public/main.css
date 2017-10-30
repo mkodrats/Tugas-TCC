@@ -18,15 +18,11 @@
   box-shadow: 10px 10px 5px #888888;
   padding: 25px;
   border-radius: 8px;
-
 }
 
 .backround{
-
   background-color: #efefef;
-
 }
-
 .gambar{
   align-content: center;
   display: block;
@@ -35,4 +31,16 @@
   width: auto;
   height: auto;
   margin-bottom: 30px;
+}
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+	border-right:0;
+	box-shadow:0 0 0;
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
 }

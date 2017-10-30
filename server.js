@@ -8,22 +8,21 @@ const bootstrap = require('express-bootstrap-service')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bootstrap.serve)
 app.use(express.static('public'))
-app.use(express.static('view'))
+app.use(express.static('views'))
+
+app.set('view engine', 'ejs')
 
 bootstrap.init({
     minified: false
 });
 
-// app.listen(3000, function() {
-//   console.log('listening on 3000')
-// })
 app.get('/', (req, res) => {
-
-  res.sendFile(__dirname + '/index.html')
-  // res.sendFile(__dirname + 'bootstrap/css/bootstrap.min.css')
-  // Note: __dirname is directory that contains the JavaScript source code. Try logging it and see what you get!
-  // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
+  db.collection('blog').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.render('index.ejs', {quotes: result})
+  })
 })
+
 
 app.post('/blog', (req, res) => {
   db.collection('blog').save(req.body, (err, result) => {
@@ -34,10 +33,13 @@ app.post('/blog', (req, res) => {
   })
 })
 
-app.get('/', (req, res) => {
-  var cursor = db.collection('blog').find()
-})
-
+app.get('/delete/:id', function (req, res) {
+  db.findById(id, function (err, doc) {
+  if (err) {
+    message.type = 'Error!';
+  }
+  doc.remove(callback); //Removes the document
+  });
 
 var db
 
